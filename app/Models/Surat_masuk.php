@@ -27,7 +27,7 @@ class Surat_masuk extends Model {
     public function filterlist($request){
       if (!empty($request->search['value'])){
           $value = $request->search['value'];
-              $data =  Surat_masuk::where('code', 'LIKE', '%' . $value . '%')
+              $data =  Surat_masuk::where('no_surat', 'LIKE', '%' . $value . '%')
               ->orWhere('name', 'LIKE', '%' . $value . '%');
         }else {
               $data = Surat_masuk::select(['*']);

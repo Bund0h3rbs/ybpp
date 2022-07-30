@@ -6,21 +6,46 @@
   </div>
   <div class="modal-body">
     <div class="text-center">
-        <dt class="text-12">Form Jabatan</dt>
+        <dt class="text-12">Surat Keluar</dt>
         <span class="text-muted text-8"> Pastikan inputan sesuai dengan ketentuan yang telah di tetapkan</span>
     </div>
     <div class="col-md-12 mt-2">
         <div class="form-group">
-            <label>Kode</label>
+            <label>No Surat</label>
             <div class="input-group">
-            {{ Form::text('code',$data->code ?? null, array('class'=>'form-control border-br10', 'required','id'=>'code','placeholder'=>'Ex: K1'))}}
+            {{ Form::text('no_surat',$data->no_surat ?? null, array('class'=>'form-control border-br10', 'required','id'=>'code','placeholder'=>'Ex: K1'))}}
             </div>
         </div>
         <div class="form-group">
-            <label>Nama / Title</label>
+            <label>Nama Surat / Title</label>
             <div class="input-group">
             {{ Form::text('name',$data->name ?? null, array('class'=>'form-control border-br10', 'required','id'=>'name','placeholder'=>'Ketua'))}}
             </div>
+        </div>
+        <div class="form-group">
+            <label>Tujuan</label>
+            <div class="input-group">
+            {{ Form::text('tujuan',$data->tujuan ?? null, array('class'=>'form-control border-br10', 'required','id'=>'name','placeholder'=>'Ketua'))}}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Tanggal Kirim</label>
+                    <div class="input-group">
+                    {{ Form::date('tgl_kirim',$data->tgl_kirim ?? null, array('class'=>'form-control border-br10', 'required','id'=>'name','placeholder'=>'Ketua'))}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Tanggal Cetak</label>
+                    <div class="input-group">
+                    {{ Form::date('tgl_cetak',$data->tgl_cetak ?? null, array('class'=>'form-control border-br10', 'required','id'=>'name','placeholder'=>'Ketua'))}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+
         </div>
 
         <div class="form-group">
@@ -30,7 +55,7 @@
         <div class="form-group row">
             <div class="col-md-8">
                 <dt class="text-9">Publish</dt>
-                <span class="text-muted text-8">Pilih slide untuk mengaktifkan Tahun Akademik, default menu akan di set draf</span>
+                <span class="text-muted text-8">Slide Aktif, Menyatakan Surat Telah Dikirim</span>
             </div>
             @php
                 $checked = null;
@@ -86,7 +111,7 @@ $('.select2').select2({
     {
         $.ajax({
         type: "POST",
-        url: "{{route('jbtn.store')}}",
+        url: "{{route('mail_out.store')}}",
         data: $("#form-create").serialize(), // serializes the form's elements.
         beforeSend: function () {
             // $('#form_create').append('<div class="loader "><div class="loading"></div></div>');
@@ -97,9 +122,17 @@ $('.select2').select2({
             data = jQuery.parseJSON(data);
             if(data.success == true)
             {
-            $('#form-create')[0].reset();
+                $('#form-create')[0].reset();
                 $(".close").trigger('click');
                 $('#table_list').DataTable().ajax.reload();
+            }else{
+                swal({
+                title:"Informasi!",
+                text: "No Surat Ditemukan, Pastikan No Surat Tidak Double / Unix",
+                icon: "warning",
+                // buttons: false,
+                // timer: 1000,
+            });
             }
         }, error: function (xhr, ajaxOptions, thrownError) {
             swal({
@@ -107,7 +140,7 @@ $('.select2').select2({
                 text: "Terdapat Kesalahan Data, Pastikan Pengisian Telah Benar",
                 icon: "warning",
                 buttons: false,
-                timer: 1000,
+                timer: 1500,
             });
         }
     });
