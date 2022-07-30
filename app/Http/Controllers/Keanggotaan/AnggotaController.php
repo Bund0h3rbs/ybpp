@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Kesiswaan;
+namespace App\Http\Controllers\Keanggotaan;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -10,9 +10,9 @@ use Form;
 use App\Librari\GlobalTools;
 use App\Models\Student;
 
-class StudentController extends Controller
+class AnggotaController extends Controller
 {
-    protected $folder = "kesiswaan.student";
+    protected $folder = "keanggotaan.anggota";
     protected $tabel;
 
     public function __construct()
@@ -25,9 +25,8 @@ class StudentController extends Controller
     {
         $checkAkses = GlobalTools::aksesmenu();
         if($checkAkses->status == true){
-            $with['title'] = "Daftar Siswa";
-            $with['kelas'] = \App\Models\Kelas::pluck('name','id')->all();
-            $with['tahun_akademik'] = \App\Models\Academic_year::whereNull('parent')->pluck('name','id')->all();
+            $with['title'] = "Daftar Anggota";
+            $with['jabatan'] = \App\Models\Jabatan::orderBy('id','ASC')->pluck('name','id')->all();
             $with['folder'] = $this->folder;
             $with['request'] = $request->all();
             return view($this->folder.'.index', $with);
@@ -84,7 +83,7 @@ class StudentController extends Controller
                 $status = "<span class='badge badge-danger p-2'> Terdaftar </span>";
 
             }
-           
+
             $place = $x->birth_place ?? null;
             $date  = isset($x->birth_date) ? date('d-M-Y',strtotime($x->birth_date)) : null;
 

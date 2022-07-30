@@ -126,10 +126,11 @@
             contentType: false,
             processData: false, // serializes the form's elements.
             beforeSend: function () {
-                // $('#form_create').append('<div class="loader "><div class="loading"></div></div>');
+                $('.content').append('<div class="preloader"><div class="loading"></div></div>');
             },
             success: function(data)
             {
+                $('.preloader').remove();
                 data = jQuery.parseJSON(data);
                 if(data.success == true)
                 {
@@ -137,6 +138,7 @@
                 $('#back_data').trigger('click');
                 }
             }, error: function (xhr, ajaxOptions, thrownError) {
+                $('.preloader').remove();
                 swal({
                     title:"Informasi!",
                     text: "Terdapat Kesalahan Data, Pastikan Pengisian Telah Benar",

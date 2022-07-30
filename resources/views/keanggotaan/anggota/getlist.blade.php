@@ -37,7 +37,7 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @php
-    $recordsUrl = route('student.getlist');
+    $recordsUrl = route('anggota.getlist');
     $coldef = ['{targets: 0, width: "60px", className: "dt-right", orderable: true}', '{targets: 0, orderable: false}'];
 @endphp
 {!! \App\Librari\HelperTBL::instance()->gettable('table_list', $recordsUrl, $coldef) !!}
@@ -47,7 +47,7 @@
     $('#add_data').click(function(){
         $.ajax({
             type:"POST",
-            url: "{{route('student.create')}}",
+            url: "{{route('anggota.create')}}",
             data: {
                 "_token": "{{ csrf_token() }}",
             },
@@ -62,7 +62,7 @@
                     text: "Terdapat Kesalahan Data, Segera Hubungi Admin",
                     icon: "warning",
                     buttons: false,
-                    timer: 1000,
+                    timer: 1500,
                 });
             }
         });

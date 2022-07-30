@@ -33,12 +33,12 @@ use Illuminate\Support\Facades\Route;
 
   }else if(Request::is(['mail_out','mail_out/*'])){
   require __DIR__.'/management/mail_out.php';
-
+  }
   /* ======================
   | Default Route Web Configuration
   | Route Group
   =========================  */
-  }else if(Request::is(['webhome','webhome/*'])){
+  else if(Request::is(['webhome','webhome/*'])){
       require __DIR__.'/management/webhome.php';
 
   }else if(Request::is(['webabout','webabout/*'])){
@@ -46,15 +46,17 @@ use Illuminate\Support\Facades\Route;
 
   }else if(Request::is(['webnews','webnews/*'])){
       require __DIR__.'/management/webnews.php';
-
-  }else if(Request::is(['webprogram','webprogram/*'])){
+  }
+  else if(Request::is(['webprogram','webprogram/*']))
+  {
       require __DIR__.'/management/webprogram.php';
+  }
   /* ======================
-      | Default Route Kesiswaan
+      | Default Route Keanggotaan
       | Route Group
       =========================  */
-  }else if(Request::is(['student','student/*'])){
-      require __DIR__.'/kesiswaan/student.php';
+  else if(Request::is(['anggota','anggota/*'])){
+      require __DIR__.'/keanggotaan/anggota.php';
 
   }else if(Request::is(['rombel','rombel/*'])){
       require __DIR__.'/kesiswaan/rombel.php';
@@ -62,7 +64,4 @@ use Illuminate\Support\Facades\Route;
   }else if(Request::is(['scheduleSubject','scheduleSubject/*'])){
       require __DIR__.'/kesiswaan/scheduleSubject.php';
 
-  // Pegawai Role
-  }else if(Request::is(['pegawai','pegawai/*'])){
-    require __DIR__.'/kepegawaian/pegawai.php';
   }

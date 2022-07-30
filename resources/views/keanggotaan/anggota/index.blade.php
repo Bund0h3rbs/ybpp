@@ -21,7 +21,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Menu</a>
+                    <a href="#">Keanggotaan</a>
                 </li>
             </ul>
         </div>
@@ -37,15 +37,15 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label>Kelas / Tingkatan </label>
+                        <label>Jabatan </label>
                         <div class="input-group">
-                            {{ Form::select('kelas_id',[''=>'Pilih']+$kelas, null, array('class'=>'form-control select2 border-br10', 'required','id'=>'kelas_id','data-placeholder'=>'Pilih Salah Satu'))}}
+                            {{ Form::select('kelas_id',[''=>'Pilih']+$jabatan, null, array('class'=>'form-control select2 border-br10', 'required','id'=>'kelas_id','data-placeholder'=>'Pilih Salah Satu'))}}
                         </div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label >Tahun Ajaran </label>
                         <div class="input-group">
-                            {{ Form::select('academic_id',[''=>'Pilih']+$tahun_akademik, null, array('class'=>'form-control select2 border-br10','id'=>'academic_id','data-placeholder'=>'Pilih Salah Satu'))}}
+                            {{ Form::select('academic_id',[''=>'Pilih'], null, array('class'=>'form-control select2 border-br10','id'=>'academic_id','data-placeholder'=>'Pilih Salah Satu'))}}
 
                         </div>
                     </div>
@@ -96,14 +96,16 @@ $('.select2').select2({
     {
         $.ajax({
             type:"POST",
-            url: "{{route('student.filterdata')}}",
+            url: "{{route('anggota.filterdata')}}",
             data: $("#form-filter").serialize(),
             beforeSend: function() {
-                $('#container').append('<div class="loader"><img src="{{asset("assets/images/preloader_2.gif")}}" /></div>');
+                $('.content').append('<div class="preloader "><div class="loading"></div></div>');
             },
             success: function (e) {
+               $('.preloader').remove();
                $('#form_list').html(e);
             }, error: function (xhr, ajaxOptions, thrownError) {
+                $('.preloader').remove();
                 swal({
                     title:"Informasi!",
                     text: "Terdapat Kesalahan Data, Segera Hubungi Admin",
