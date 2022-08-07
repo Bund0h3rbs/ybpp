@@ -31,7 +31,7 @@ class Student_family extends Model {
     public function filterlist($request){
       if (!empty($request->search['value'])){
           $value = $request->search['value'];
-              $data =  Student_family::where('code', 'LIKE', '%' . $value . '%')
+              $data =  Student_family::where('nik', 'LIKE', '%' . $value . '%')
               ->orWhere('name', 'LIKE', '%' . $value . '%');
         }else {
               $data = Student_family::select(['*']);

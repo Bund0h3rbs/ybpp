@@ -52,17 +52,19 @@
                 "_token": "{{ csrf_token() }}",
             },
             beforeSend: function() {
-                $('#container').append('<div class="loader"><img src="{{asset("assets/images/preloader_2.gif")}}" /></div>');
+                $('.content').append('<div class="preloader"><div class="loading"></div></div>');
             },
             success: function (e) {
+               $('.preloader').remove();
                $('#default_form').html(e);
             }, error: function (xhr, ajaxOptions, thrownError) {
+                $('.preloader').remove();
                 swal({
                     title:"Informasi!",
                     text: "Terdapat Kesalahan Data, Segera Hubungi Admin",
                     icon: "warning",
                     buttons: false,
-                    timer: 1500,
+                    timer: 2000,
                 });
             }
         });
